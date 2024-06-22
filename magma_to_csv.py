@@ -68,6 +68,19 @@ class Group:
     hgs: list[GroupHgs]
 
 
+def deduplicate_hgs(hgs_list: list[GroupHgs]) -> list[GroupHgs]:
+    deduped = []
+    seen_types = set()
+    for hgs in hgs_list:
+        if hgs.type in seen_types:
+            continue
+
+        seen_types.add(hgs.type)
+        deduped.append(hgs)
+
+    return deduped
+
+
 # normalise_group ensures all groups have the same hgs types, with any missing types
 # added in with zero'd GN values
 def normalise_group_hgs_types(groups: list[Group]) -> list[Group]:
@@ -78,6 +91,9 @@ def normalise_group_hgs_types(groups: list[Group]) -> list[Group]:
     # so they can be compared index by index
     hgs_types = set()
     for group in groups:
+        # hgs can be duplicated, so we should remove duplicates
+        group.hgs = deduplicate_hgs(group.hgs)
+
         hgs_types.update([hgs.type for hgs in group.hgs])
         group.hgs.sort(key=lambda hgs: hgs.type)
 
@@ -158,8 +174,6 @@ if __name__ == "__main__":
                     record.fields['ac'],
                     record.fields['bc'],
                 ))
-
-            print(repr(equiv_rep.permutations))
 
             groups.append(Group(
                 isom=GroupRepresentation(isom.n, isom.x),
