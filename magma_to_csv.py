@@ -9,6 +9,7 @@
 import csv
 from dataclasses import dataclass
 import os
+from typing import Optional
 import magma_parser.parser as magma_parser
 import sys
 
@@ -61,6 +62,7 @@ class GroupPermutationRepresentation:
 @dataclass
 class Group:
     isom: GroupRepresentation
+    perm_isom: Optional[int]
     perm_rep: GroupPermutationRepresentation
     galois: list[GaloisInfo]
 
@@ -126,6 +128,9 @@ def groups_to_csv(groups: list[Group], output_dir: str):
 
     # construct CSV header
     header = ["group", "isom"]
+    # check first group to decide if we should include perm_isom
+    if groups[0].perm_isom:
+        header.append("perm_isom")
     # we assume there is at least 1 group and at least 1 galois info for each group.
     galois_keys = [key for key in groups[0].galois[0].nums.keys()]
     for galois in groups[0].galois:
@@ -140,6 +145,8 @@ def groups_to_csv(groups: list[Group], output_dir: str):
 
         for g in groups:
             row = [g.perm_rep, g.isom]
+            if "perm_isom" in header:
+                row.append(g.perm_isom)
             for galois in g.galois:
                 row.extend(galois.nums[key] for key in galois_keys)
             w.writerow(row)
@@ -149,6 +156,9 @@ def parse_group(record: magma_parser.Record) -> Group:
     isom: magma_parser.GroupRep = record.fields.get('isom')
     if isom is None:
         raise ValueError("expected field 'isom'")
+
+    # perm_isom is optional
+    perm_isom = record.fields.get('perm_isom')
 
     equiv_rep: magma_parser.GroupRepDesc = record.fields.get('equiv_rep')
     if isom is None:
@@ -172,6 +182,7 @@ def parse_group(record: magma_parser.Record) -> Group:
 
     return Group(
         isom=GroupRepresentation(isom.n, isom.x),
+        perm_isom=perm_isom,
         perm_rep=GroupPermutationRepresentation(
             perms=[Permutation(p.parts) for p in equiv_rep.permutations]
         ),
