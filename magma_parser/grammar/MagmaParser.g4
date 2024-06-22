@@ -11,28 +11,28 @@ magma
     ;
 
 outputs
-    : array (NEWLINE (export_duration NEWLINE)? array)*
+    : array (('\n' export_duration)? '\n' array)* ('\n' export_duration)? '\n'*
     ;
 
 array
-    : LSQUARE MULT? NEWLINE? value (COMMA NEWLINE? value)* NEWLINE? MULT? RSQUARE
-    | LSQUARE RSQUARE
+    : '[' '*'? '\n'? value (',' '\n'? value)* '\n'? '*'? ']'
+    | '[' ']'
     ;
 
 record
-    : RECORD LANGLE RECORD_FORMAT LANGLE record_formats RANGLE PIPE NEWLINE defs NEWLINE? RANGLE
+    : RECORD '<' RECORD_FORMAT '<' record_formats '>' '|' '\n' defs '\n'? '>'
     ;
 
 record_formats
-    : record_format (COMMA NEWLINE? record_format)*
+    : record_format (',' '\n'? record_format)*
     ;
 
 record_format
-    : ID (COLON ID LPAREN RPAREN)?
+    : ID (':' ID '(' ')')?
     ;
 
 defs
-    : def (COMMA NEWLINE def)*
+    : def (',' '\n' def)*
     ;
 
 def
@@ -49,7 +49,7 @@ value
     ;
 
 group
-    : LANGLE INT (COMMA INT)* RANGLE
+    : '<' INT (',' INT)* '>'
     ;
 
 permutation
@@ -60,9 +60,8 @@ permutation_part
     : '(' INT (',' INT)* ')'
     ;
 
-// TODO: support 'Order = 8 = 2^2 * 2' and 'Order = 8 = 2 * 4'
 order_calculation
-    : ORDER EQ INT (EQ int_expression)?
+    : ORDER '=' INT ('=' int_expression)?
     ;
 
 int_expression
@@ -71,14 +70,14 @@ int_expression
     ;
 
 int_operation
-    : MULT
+    : '*'
     | EXP
     ;
 
 representation_description
-    : STRING_UQ NEWLINE order_calculation NEWLINE permutation (NEWLINE permutation)*
+    : STRING_UQ '\n' order_calculation '\n' permutation ('\n' permutation)*
     ;
 
 export_duration
-    : TIME COLON DECIMAL
+    : TIME ':' DECIMAL
     ;
