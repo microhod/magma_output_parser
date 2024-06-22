@@ -143,6 +143,57 @@ def groups_to_csv(groups: list[Group], output_dir: str):
             w.writerow(row)
 
 
+def parse_group(record: magma_parser.Record) -> Group:
+    isom: magma_parser.GroupRep = record.fields.get('isom')
+    if isom is None:
+        raise ValueError("expected field 'isom'")
+
+    equiv_rep: magma_parser.GroupRepDesc = record.fields.get('equiv_rep')
+    if isom is None:
+        raise ValueError("expected field 'equiv_rep'")
+
+    hgs_gns = record.fields.get('HGS_GN')
+    if hgs_gns is None:
+        raise ValueError("expected field 'HGS_GN'")
+
+    hgs = []
+    for hgs_gn in hgs_gns:
+        record: magma_parser.Record = hgs_gn[0]
+        group_rep: magma_parser.GroupRep = hgs_gn[1]
+
+        hgs.append(GroupHgs(
+            GroupRepresentation(group_rep.n, group_rep.x),
+            record.fields['tot'],
+            record.fields['gal'],
+            record.fields['ac'],
+            record.fields['bc'],
+        ))
+
+    return Group(
+        isom=GroupRepresentation(isom.n, isom.x),
+        perm_rep=GroupPermutationRepresentation(
+            perms=[Permutation(p.parts) for p in equiv_rep.permutations]
+        ),
+        hgs=hgs
+    )
+
+
+def parse(filepath: str) -> list[list[Group]]:
+    group_lists = []
+    record_outputs = magma_parser.parse_file(filepath)
+
+    for i, record_output in enumerate(record_outputs):
+        groups = []
+        for j, record in enumerate(record_output):
+            try:
+                groups.append(parse_group(record))
+            except ValueError as e:
+                raise ValueError(f"output[{i}], record[{j}]: {e}")
+        group_lists.append(groups)
+
+    return group_lists
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("please provide the file you would like to parse")
@@ -153,38 +204,6 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         output_dir = sys.argv[2]
 
-    group_lists = []
-    record_outputs = magma_parser.parse_file(sys.argv[1])
-    for record_output in record_outputs:
-        groups = []
-        for record in record_output:
-            isom: magma_parser.GroupRep = record.fields['isom']
-            equiv_rep: magma_parser.GroupRepDesc = record.fields['equiv_rep']
-            
-            hgs_gns = record.fields['HGS_GN']
-            hgs = []
-            for hgs_gn in hgs_gns:
-                record: magma_parser.Record = hgs_gn[0]
-                group_rep: magma_parser.GroupRep = hgs_gn[1]
-
-                hgs.append(GroupHgs(
-                    GroupRepresentation(group_rep.n, group_rep.x),
-                    record.fields['tot'],
-                    record.fields['gal'],
-                    record.fields['ac'],
-                    record.fields['bc'],
-                ))
-
-            groups.append(Group(
-                isom=GroupRepresentation(isom.n, isom.x),
-                perm_rep=GroupPermutationRepresentation(
-                    perms=[Permutation(p.parts) for p in equiv_rep.permutations]
-                ),
-                hgs=hgs
-            ))
-
-        group_lists.append(groups)
-
-    for groups in group_lists:
+    for groups in parse(input_file):
         groups = normalise_group_hgs_types(groups)
         groups_to_csv(groups, output_dir)
