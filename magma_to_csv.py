@@ -156,7 +156,9 @@ def parse_group(record: magma_parser.Record) -> Group:
 
     galois_field = record.fields.get('HGS_GN')
     if galois_field is None:
-        raise ValueError("expected field 'HGS_GN'")
+        galois_field = record.fields.get('sbracoid_GN')
+    if galois_field is None:
+        raise ValueError("expected galois field 'HGS_GN' or 'sbracoid_GN'")
 
     galois_infos = []
     for field in galois_field:
