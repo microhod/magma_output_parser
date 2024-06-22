@@ -12,7 +12,7 @@ This repo provides:
 
 ## Running the script
 
-Install requirements with pip (use a [virtualenv](https://virtualenv.pypa.io/en/latest/) if you like them):
+Install requirements with [pip](https://pip.pypa.io/en/stable/) (use a [virtualenv](https://virtualenv.pypa.io/en/latest/) if you like them):
 
 ```shell
 pip install -r requirements.txt
