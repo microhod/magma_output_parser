@@ -34,12 +34,9 @@ class GroupRepresentation:
 
 
 @dataclass
-class GroupHgs:
+class GaloisInfo:
     type: GroupRepresentation
-    tot: int
-    gal: int
-    ac: int
-    bc: int
+    nums: dict[str, int]
 
 
 @dataclass
@@ -65,49 +62,52 @@ class GroupPermutationRepresentation:
 class Group:
     isom: GroupRepresentation
     perm_rep: GroupPermutationRepresentation
-    hgs: list[GroupHgs]
+    galois: list[GaloisInfo]
 
 
-def deduplicate_hgs(hgs_list: list[GroupHgs]) -> list[GroupHgs]:
+def deduplicate_galois_infos(galois_infos: list[GaloisInfo]) -> list[GaloisInfo]:
     deduped = []
     seen_types = set()
-    for hgs in hgs_list:
-        if hgs.type in seen_types:
+    for info in galois_infos:
+        if info.type in seen_types:
             continue
 
-        seen_types.add(hgs.type)
-        deduped.append(hgs)
+        seen_types.add(info.type)
+        deduped.append(info)
 
     return deduped
 
 
-# normalise_group ensures all groups have the same hgs types, with any missing types
+# normalise_group ensures all groups have the same galois types, with any missing types
 # added in with zero'd GN values
-def normalise_group_hgs_types(groups: list[Group]) -> list[Group]:
+def normalise_group_galois_types(groups: list[Group]) -> list[Group]:
     # sort groups by their isometry
     groups.sort(key=lambda g: g.isom)
 
-    # get sorted list of all hgs types and sort all group hgs types
+    # get sorted list of all galois types and sort all group galois types
     # so they can be compared index by index
-    hgs_types = set()
+    galois_types = set()
     for group in groups:
-        # hgs can be duplicated, so we should remove duplicates
-        group.hgs = deduplicate_hgs(group.hgs)
+        # galois can be duplicated, so we should remove duplicates
+        group.galois = deduplicate_galois_infos(group.galois)
 
-        hgs_types.update([hgs.type for hgs in group.hgs])
-        group.hgs.sort(key=lambda hgs: hgs.type)
+        galois_types.update([galois.type for galois in group.galois])
+        group.galois.sort(key=lambda galois: galois.type)
 
-    all_hgs_types = list(hgs_types)
-    all_hgs_types.sort()
+    all_galois_types = list(galois_types)
+    all_galois_types.sort()
 
     for group in groups:
-        for i, type in enumerate(all_hgs_types):
-            if i < len(group.hgs) and group.hgs[i].type == type:
+        for i, type in enumerate(all_galois_types):
+            if i < len(group.galois) and group.galois[i].type == type:
                 continue
 
+            # we assume there is at least 1 galois info for each group.
+            num_keys = list(group.galois[0].nums.keys())
+
             # insert missing type with zero GN values at the correct index
-            zero_hgs = GroupHgs(type=type, tot=0, gal=0, ac=0, bc=0)
-            group.hgs = group.hgs[:i] +[zero_hgs] + group.hgs[i:]
+            zero_galois = GaloisInfo(type=type, nums={key: 0 for key in num_keys})
+            group.galois = group.galois[:i] +[zero_galois] + group.galois[i:]
 
     return groups
 
@@ -121,14 +121,16 @@ def groups_to_csv(groups: list[Group], output_dir: str):
     groups.sort(key=lambda g: g.isom)
     
     # get the order of the group list
-    n = groups[0].hgs[0].type.n
+    n = groups[0].galois[0].type.n
     output_file = os.path.join(output_dir, f"groups_{n}.csv")
 
     # construct CSV header
     header = ["group", "isom"]
-    types = [hgs.type for hgs in groups[0].hgs]
-    for type in types:
-        header.extend([f"{type}.tot", f"{type}.gal", f"{type}.ac", f"{type}.bc"])
+    # we assume there is at least 1 group and at least 1 galois info for each group.
+    galois_keys = [key for key in groups[0].galois[0].nums.keys()]
+    for galois in groups[0].galois:
+        header.extend([f"{galois.type}.{key}" for key in galois_keys])
+        pass
     
     # have to set newline="" because otherwise windows gets blank lines
     # https://stackoverflow.com/a/3348664
@@ -138,8 +140,8 @@ def groups_to_csv(groups: list[Group], output_dir: str):
 
         for g in groups:
             row = [g.perm_rep, g.isom]
-            for hgs in g.hgs:
-                row.extend([hgs.tot, hgs.gal, hgs.ac, hgs.bc])
+            for galois in g.galois:
+                row.extend(galois.nums[key] for key in galois_keys)
             w.writerow(row)
 
 
@@ -152,21 +154,18 @@ def parse_group(record: magma_parser.Record) -> Group:
     if isom is None:
         raise ValueError("expected field 'equiv_rep'")
 
-    hgs_gns = record.fields.get('HGS_GN')
-    if hgs_gns is None:
+    galois_field = record.fields.get('HGS_GN')
+    if galois_field is None:
         raise ValueError("expected field 'HGS_GN'")
 
-    hgs = []
-    for hgs_gn in hgs_gns:
-        record: magma_parser.Record = hgs_gn[0]
-        group_rep: magma_parser.GroupRep = hgs_gn[1]
+    galois_infos = []
+    for field in galois_field:
+        record: magma_parser.Record = field[0]
+        group_rep: magma_parser.GroupRep = field[1]
 
-        hgs.append(GroupHgs(
-            GroupRepresentation(group_rep.n, group_rep.x),
-            record.fields['tot'],
-            record.fields['gal'],
-            record.fields['ac'],
-            record.fields['bc'],
+        galois_infos.append(GaloisInfo(
+            type=GroupRepresentation(group_rep.n, group_rep.x),
+            nums=record.fields
         ))
 
     return Group(
@@ -174,7 +173,7 @@ def parse_group(record: magma_parser.Record) -> Group:
         perm_rep=GroupPermutationRepresentation(
             perms=[Permutation(p.parts) for p in equiv_rep.permutations]
         ),
-        hgs=hgs
+        galois=galois_infos
     )
 
 
@@ -205,5 +204,5 @@ if __name__ == "__main__":
         output_dir = sys.argv[2]
 
     for groups in parse(input_file):
-        groups = normalise_group_hgs_types(groups)
+        groups = normalise_group_galois_types(groups)
         groups_to_csv(groups, output_dir)
