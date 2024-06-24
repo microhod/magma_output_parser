@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.12520164.svg)](https://doi.org/10.5281/zenodo.12520164)
+
 # Magma Output File Parser
 
 This repo implements a parser for group record outputs from the computational algebra program [Magma](http://magma.maths.usyd.edu.au/magma/).
