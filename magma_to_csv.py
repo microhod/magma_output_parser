@@ -71,6 +71,12 @@ def parse(filepath: str) -> list[list[Group]]:
     return group_lists
 
 
+def magma(input_file, output_dir):
+    for groups in parse(input_file):
+        groups = normalise_group_galois_types(groups)
+        csv_writer.to_csv(groups, output_dir)
+
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("please provide the file you would like to parse")
@@ -81,6 +87,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         output_dir = sys.argv[2]
 
-    for groups in parse(input_file):
-        groups = normalise_group_galois_types(groups)
-        csv_writer.to_csv(groups, output_dir)
+    magma(input_file, output_dir)
