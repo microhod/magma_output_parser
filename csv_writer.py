@@ -3,8 +3,8 @@ import os
 
 from models import Group
 
-# to_csv writes the list of groups to a csv file
-def to_csv(groups: list[Group], output_dir: str):
+# writes the list of groups to a csv file
+def write(groups: list[Group], output_dir: str):
     if len(groups) == 0:
         return
     
@@ -16,10 +16,10 @@ def to_csv(groups: list[Group], output_dir: str):
         # get the order of the group list
         n = groups[0].galois[type][0].type.n
         output_file = os.path.join(output_dir, f"groups_{n}_{type}.csv")
-        _to_csv_for_galois_type(groups, type, output_file)
+        _write_galois_type(groups, type, output_file)
 
 
-def _to_csv_for_galois_type(groups: list[Group], type: str, output_file):
+def _write_galois_type(groups: list[Group], type: str, output_file):
     # construct CSV header
     header = ["group", "isom"]
     # check first group to decide if we should include perm_isom

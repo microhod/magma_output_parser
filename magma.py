@@ -6,10 +6,12 @@
 #       python parse.py "/path/to/input.txt" "/path/to/output_directory/"
 #
 # Note: if you don't supply an output directory, the script will default to outputting to the current directory
+import sys
+
 import csv_writer
 import magma_parser.parser as magma_parser
 from models import GaloisInfo, Group, GroupPermutationRepresentation, GroupRepresentation, Permutation, normalise_group_galois_types
-import sys
+import xlsx_writer
 
 
 def parse_group(record: magma_parser.Record) -> Group:
@@ -71,10 +73,17 @@ def parse(filepath: str) -> list[list[Group]]:
     return group_lists
 
 
-def magma(input_file, output_dir):
+def magma(input_file, output_dir, writer):
     for groups in parse(input_file):
         groups = normalise_group_galois_types(groups)
-        csv_writer.to_csv(groups, output_dir)
+
+        match writer:
+            case "csv":
+                csv_writer.write(groups, output_dir)
+            case "xlsx":
+                xlsx_writer.write(groups, output_dir)
+            case _:
+                raise ValueError(f'unsupported writer [{writer}]')
 
 
 if __name__ == "__main__":
@@ -86,5 +95,8 @@ if __name__ == "__main__":
     output_dir = "."  # default to the current directory
     if len(sys.argv) > 2:
         output_dir = sys.argv[2]
+    writer = "xlsx"
+    if len(sys.argv) > 3:
+        writer = sys.argv[3]
 
-    magma(input_file, output_dir)
+    magma(input_file, output_dir, writer)

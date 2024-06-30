@@ -10,7 +10,7 @@ This repo provides:
 
 * [magma_parser](./magma_parser/) a module for parsing magma group output files (see [tests/testdata](./tests/testdata/) for examples of the file structures it supports).
   * This was designed to not fit too tightly to only my usecase so it might be a useful reference for others. If there's any interest it could be broken out into a separate package.
-* [magma_to_csv.py](./magma_to_csv.py) a script to parse a magma file and export to a CSV (this is quite specific to my usecase so might not be of much use to anyone else)
+* [magma.py](./magma.py) a script to parse a magma file and export to a CSV or Excel Spreadsheet (this is quite specific to my usecase so might not be of much use to anyone else)
 
 ## Running the script
 
@@ -20,11 +20,16 @@ Install requirements with [pip](https://pip.pypa.io/en/stable/) (use a [virtuale
 pip install -r requirements.txt
 ```
 
-Then run the script (output directory is optional, defaults to the current directory)
+Then run the script.
 
 ```shell
-python3 magma_to_csv.py '[INPUT_FILE]' '[OUTPUT_DIRECTORY]'
+python3 magma.py '[INPUT_FILE]' '[OUTPUT_DIRECTORY]' '[WRITER=csv|xlsx]'
 ```
+
+Defaults:
+
+* `OUTPUT_DIRECTORY`: the current directory
+* `WRITER`: `xlsx`
 
 ## `magma_parser`
 
