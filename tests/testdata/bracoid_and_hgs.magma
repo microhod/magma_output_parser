@@ -1,0 +1,29 @@
+[
+    rec<recformat<equiv_rep, class_size: IntegerRing(), isom, perm_isom,
+    soluble_group, lengths, sbracoid_type, soluble_types, HGS_GN, sbracoid_GN> |
+        equiv_rep := Symmetric group acting on a set of cardinality 2
+        Order = 2
+            (1, 2),
+        class_size := 1,
+        isom := <2, 1>,
+        perm_isom := 1,
+        soluble_group := true,
+        lengths := [ 1 ],
+        sbracoid_type := [ <2,1> ],
+        soluble_types := [ true ],
+        HGS_GN := [ [*
+            rec<recformat<tot, gal, ac, bc> |
+                tot := 1,
+                gal := 1,
+                ac := 1,
+                bc := 1>,
+            <2,1>
+        *] ],
+        sbracoid_GN := [ [*
+            rec<recformat<tot, sbrace, ac> |
+                tot := 1,
+                sbrace := 1,
+                ac := 1>,
+            <2,1>
+        *] ]>
+]

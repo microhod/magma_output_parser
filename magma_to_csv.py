@@ -24,21 +24,26 @@ def parse_group(record: magma_parser.Record) -> Group:
     if isom is None:
         raise ValueError("expected field 'equiv_rep'")
 
-    galois_field = record.fields.get('HGS_GN')
-    if galois_field is None:
-        galois_field = record.fields.get('sbracoid_GN')
-    if galois_field is None:
+    galois_fields = {}
+    if record.fields.get('HGS_GN'):
+        galois_fields['hgs'] = record.fields.get('HGS_GN')
+    if record.fields.get('sbracoid_GN'):
+        galois_fields['bracoid'] = record.fields.get('sbracoid_GN')
+    if len(galois_fields) == 0:
         raise ValueError("expected galois field 'HGS_GN' or 'sbracoid_GN'")
 
-    galois_infos = []
-    for field in galois_field:
-        record: magma_parser.Record = field[0]
-        group_rep: magma_parser.GroupRep = field[1]
+    galois_infos = {}
+    for type in galois_fields:
+        galois_infos[type] = []
 
-        galois_infos.append(GaloisInfo(
-            type=GroupRepresentation(group_rep.n, group_rep.x),
-            nums=record.fields
-        ))
+        for field in galois_fields[type]:
+            record: magma_parser.Record = field[0]
+            group_rep: magma_parser.GroupRep = field[1]
+
+            galois_infos[type].append(GaloisInfo(
+                type=GroupRepresentation(group_rep.n, group_rep.x),
+                nums=record.fields
+            ))
 
     return Group(
         isom=GroupRepresentation(isom.n, isom.x),
