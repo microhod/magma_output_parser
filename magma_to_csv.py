@@ -16,11 +16,11 @@ import sys
 
 @dataclass
 class GroupRepresentation:
-    n: int
-    x: int
+    n: Optional[int]
+    x: Optional[int]
 
     def __str__(self) -> str:
-        if self.n == 0 and self.x == 0:
+        if self.n is None and self.x is None:
             return "unknown"
         return f"<{self.n}:{self.x}>"
 
@@ -31,6 +31,12 @@ class GroupRepresentation:
         return self.n == other.n and self.x == other.x
     
     def __lt__(self, other):
+        # unknown groups are greater than non-unknowns
+        if self.n is None and self.x is None:
+            return False
+        if other.n is None and other.x is None:
+            return True
+
         return self.n < other.n or (self.n == other.n and self.x < other.x)
 
 

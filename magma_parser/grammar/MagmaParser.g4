@@ -50,6 +50,7 @@ value
 
 group
     : '<' INT (',' INT)* '>'
+    | UNKNOWN
     ;
 
 permutation

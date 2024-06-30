@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,24,209,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,25,211,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,
         2,14,7,14,2,15,7,15,2,16,7,16,1,0,1,0,1,0,3,0,38,8,0,1,1,1,1,1,1,
         3,1,43,8,1,1,1,1,1,5,1,47,8,1,10,1,12,1,50,9,1,1,1,1,1,3,1,54,8,
@@ -21,66 +21,68 @@ def serializedATN():
         8,4,1,4,5,4,112,8,4,10,4,12,4,115,9,4,1,5,1,5,1,5,1,5,1,5,3,5,122,
         8,5,1,6,1,6,1,6,1,6,5,6,128,8,6,10,6,12,6,131,9,6,1,7,1,7,1,7,1,
         7,1,8,1,8,1,8,1,8,1,8,1,8,3,8,143,8,8,1,9,1,9,1,9,1,9,5,9,149,8,
-        9,10,9,12,9,152,9,9,1,9,1,9,1,10,4,10,157,8,10,11,10,12,10,158,1,
-        11,1,11,1,11,1,11,5,11,165,8,11,10,11,12,11,168,9,11,1,11,1,11,1,
-        12,1,12,1,12,1,12,1,12,3,12,177,8,12,1,13,1,13,1,13,1,13,1,13,1,
-        13,1,13,5,13,186,8,13,10,13,12,13,189,9,13,1,14,1,14,1,15,1,15,1,
-        15,1,15,1,15,1,15,1,15,5,15,200,8,15,10,15,12,15,203,9,15,1,16,1,
-        16,1,16,1,16,1,16,0,1,26,17,0,2,4,6,8,10,12,14,16,18,20,22,24,26,
-        28,30,32,0,1,1,0,12,13,220,0,37,1,0,0,0,2,39,1,0,0,0,4,89,1,0,0,
-        0,6,91,1,0,0,0,8,105,1,0,0,0,10,116,1,0,0,0,12,123,1,0,0,0,14,132,
-        1,0,0,0,16,142,1,0,0,0,18,144,1,0,0,0,20,156,1,0,0,0,22,160,1,0,
-        0,0,24,171,1,0,0,0,26,178,1,0,0,0,28,190,1,0,0,0,30,192,1,0,0,0,
-        32,204,1,0,0,0,34,38,1,0,0,0,35,38,3,2,1,0,36,38,5,0,0,1,37,34,1,
-        0,0,0,37,35,1,0,0,0,37,36,1,0,0,0,38,1,1,0,0,0,39,48,3,4,2,0,40,
-        41,5,14,0,0,41,43,3,32,16,0,42,40,1,0,0,0,42,43,1,0,0,0,43,44,1,
-        0,0,0,44,45,5,14,0,0,45,47,3,4,2,0,46,42,1,0,0,0,47,50,1,0,0,0,48,
-        46,1,0,0,0,48,49,1,0,0,0,49,53,1,0,0,0,50,48,1,0,0,0,51,52,5,14,
-        0,0,52,54,3,32,16,0,53,51,1,0,0,0,53,54,1,0,0,0,54,58,1,0,0,0,55,
-        57,5,14,0,0,56,55,1,0,0,0,57,60,1,0,0,0,58,56,1,0,0,0,58,59,1,0,
-        0,0,59,3,1,0,0,0,60,58,1,0,0,0,61,63,5,5,0,0,62,64,5,12,0,0,63,62,
-        1,0,0,0,63,64,1,0,0,0,64,66,1,0,0,0,65,67,5,14,0,0,66,65,1,0,0,0,
-        66,67,1,0,0,0,67,68,1,0,0,0,68,76,3,16,8,0,69,71,5,8,0,0,70,72,5,
-        14,0,0,71,70,1,0,0,0,71,72,1,0,0,0,72,73,1,0,0,0,73,75,3,16,8,0,
-        74,69,1,0,0,0,75,78,1,0,0,0,76,74,1,0,0,0,76,77,1,0,0,0,77,80,1,
-        0,0,0,78,76,1,0,0,0,79,81,5,14,0,0,80,79,1,0,0,0,80,81,1,0,0,0,81,
-        83,1,0,0,0,82,84,5,12,0,0,83,82,1,0,0,0,83,84,1,0,0,0,84,85,1,0,
-        0,0,85,86,5,6,0,0,86,90,1,0,0,0,87,88,5,5,0,0,88,90,5,6,0,0,89,61,
-        1,0,0,0,89,87,1,0,0,0,90,5,1,0,0,0,91,92,5,18,0,0,92,93,5,1,0,0,
-        93,94,5,19,0,0,94,95,5,1,0,0,95,96,3,8,4,0,96,97,5,2,0,0,97,98,5,
-        9,0,0,98,99,5,14,0,0,99,101,3,12,6,0,100,102,5,14,0,0,101,100,1,
-        0,0,0,101,102,1,0,0,0,102,103,1,0,0,0,103,104,5,2,0,0,104,7,1,0,
-        0,0,105,113,3,10,5,0,106,108,5,8,0,0,107,109,5,14,0,0,108,107,1,
-        0,0,0,108,109,1,0,0,0,109,110,1,0,0,0,110,112,3,10,5,0,111,106,1,
-        0,0,0,112,115,1,0,0,0,113,111,1,0,0,0,113,114,1,0,0,0,114,9,1,0,
-        0,0,115,113,1,0,0,0,116,121,5,23,0,0,117,118,5,7,0,0,118,119,5,23,
-        0,0,119,120,5,3,0,0,120,122,5,4,0,0,121,117,1,0,0,0,121,122,1,0,
-        0,0,122,11,1,0,0,0,123,129,3,14,7,0,124,125,5,8,0,0,125,126,5,14,
-        0,0,126,128,3,14,7,0,127,124,1,0,0,0,128,131,1,0,0,0,129,127,1,0,
-        0,0,129,130,1,0,0,0,130,13,1,0,0,0,131,129,1,0,0,0,132,133,5,23,
-        0,0,133,134,5,11,0,0,134,135,3,16,8,0,135,15,1,0,0,0,136,143,5,16,
-        0,0,137,143,5,15,0,0,138,143,3,18,9,0,139,143,3,6,3,0,140,143,3,
-        4,2,0,141,143,3,30,15,0,142,136,1,0,0,0,142,137,1,0,0,0,142,138,
-        1,0,0,0,142,139,1,0,0,0,142,140,1,0,0,0,142,141,1,0,0,0,143,17,1,
-        0,0,0,144,145,5,1,0,0,145,150,5,16,0,0,146,147,5,8,0,0,147,149,5,
-        16,0,0,148,146,1,0,0,0,149,152,1,0,0,0,150,148,1,0,0,0,150,151,1,
-        0,0,0,151,153,1,0,0,0,152,150,1,0,0,0,153,154,5,2,0,0,154,19,1,0,
-        0,0,155,157,3,22,11,0,156,155,1,0,0,0,157,158,1,0,0,0,158,156,1,
-        0,0,0,158,159,1,0,0,0,159,21,1,0,0,0,160,161,5,3,0,0,161,166,5,16,
-        0,0,162,163,5,8,0,0,163,165,5,16,0,0,164,162,1,0,0,0,165,168,1,0,
-        0,0,166,164,1,0,0,0,166,167,1,0,0,0,167,169,1,0,0,0,168,166,1,0,
-        0,0,169,170,5,4,0,0,170,23,1,0,0,0,171,172,5,20,0,0,172,173,5,10,
-        0,0,173,176,5,16,0,0,174,175,5,10,0,0,175,177,3,26,13,0,176,174,
-        1,0,0,0,176,177,1,0,0,0,177,25,1,0,0,0,178,179,6,13,-1,0,179,180,
-        5,16,0,0,180,187,1,0,0,0,181,182,10,1,0,0,182,183,3,28,14,0,183,
-        184,3,26,13,2,184,186,1,0,0,0,185,181,1,0,0,0,186,189,1,0,0,0,187,
-        185,1,0,0,0,187,188,1,0,0,0,188,27,1,0,0,0,189,187,1,0,0,0,190,191,
-        7,0,0,0,191,29,1,0,0,0,192,193,5,22,0,0,193,194,5,14,0,0,194,195,
-        3,24,12,0,195,196,5,14,0,0,196,201,3,20,10,0,197,198,5,14,0,0,198,
-        200,3,20,10,0,199,197,1,0,0,0,200,203,1,0,0,0,201,199,1,0,0,0,201,
-        202,1,0,0,0,202,31,1,0,0,0,203,201,1,0,0,0,204,205,5,21,0,0,205,
-        206,5,7,0,0,206,207,5,17,0,0,207,33,1,0,0,0,24,37,42,48,53,58,63,
-        66,71,76,80,83,89,101,108,113,121,129,142,150,158,166,176,187,201
+        9,10,9,12,9,152,9,9,1,9,1,9,3,9,156,8,9,1,10,4,10,159,8,10,11,10,
+        12,10,160,1,11,1,11,1,11,1,11,5,11,167,8,11,10,11,12,11,170,9,11,
+        1,11,1,11,1,12,1,12,1,12,1,12,1,12,3,12,179,8,12,1,13,1,13,1,13,
+        1,13,1,13,1,13,1,13,5,13,188,8,13,10,13,12,13,191,9,13,1,14,1,14,
+        1,15,1,15,1,15,1,15,1,15,1,15,1,15,5,15,202,8,15,10,15,12,15,205,
+        9,15,1,16,1,16,1,16,1,16,1,16,0,1,26,17,0,2,4,6,8,10,12,14,16,18,
+        20,22,24,26,28,30,32,0,1,1,0,12,13,223,0,37,1,0,0,0,2,39,1,0,0,0,
+        4,89,1,0,0,0,6,91,1,0,0,0,8,105,1,0,0,0,10,116,1,0,0,0,12,123,1,
+        0,0,0,14,132,1,0,0,0,16,142,1,0,0,0,18,155,1,0,0,0,20,158,1,0,0,
+        0,22,162,1,0,0,0,24,173,1,0,0,0,26,180,1,0,0,0,28,192,1,0,0,0,30,
+        194,1,0,0,0,32,206,1,0,0,0,34,38,1,0,0,0,35,38,3,2,1,0,36,38,5,0,
+        0,1,37,34,1,0,0,0,37,35,1,0,0,0,37,36,1,0,0,0,38,1,1,0,0,0,39,48,
+        3,4,2,0,40,41,5,14,0,0,41,43,3,32,16,0,42,40,1,0,0,0,42,43,1,0,0,
+        0,43,44,1,0,0,0,44,45,5,14,0,0,45,47,3,4,2,0,46,42,1,0,0,0,47,50,
+        1,0,0,0,48,46,1,0,0,0,48,49,1,0,0,0,49,53,1,0,0,0,50,48,1,0,0,0,
+        51,52,5,14,0,0,52,54,3,32,16,0,53,51,1,0,0,0,53,54,1,0,0,0,54,58,
+        1,0,0,0,55,57,5,14,0,0,56,55,1,0,0,0,57,60,1,0,0,0,58,56,1,0,0,0,
+        58,59,1,0,0,0,59,3,1,0,0,0,60,58,1,0,0,0,61,63,5,5,0,0,62,64,5,12,
+        0,0,63,62,1,0,0,0,63,64,1,0,0,0,64,66,1,0,0,0,65,67,5,14,0,0,66,
+        65,1,0,0,0,66,67,1,0,0,0,67,68,1,0,0,0,68,76,3,16,8,0,69,71,5,8,
+        0,0,70,72,5,14,0,0,71,70,1,0,0,0,71,72,1,0,0,0,72,73,1,0,0,0,73,
+        75,3,16,8,0,74,69,1,0,0,0,75,78,1,0,0,0,76,74,1,0,0,0,76,77,1,0,
+        0,0,77,80,1,0,0,0,78,76,1,0,0,0,79,81,5,14,0,0,80,79,1,0,0,0,80,
+        81,1,0,0,0,81,83,1,0,0,0,82,84,5,12,0,0,83,82,1,0,0,0,83,84,1,0,
+        0,0,84,85,1,0,0,0,85,86,5,6,0,0,86,90,1,0,0,0,87,88,5,5,0,0,88,90,
+        5,6,0,0,89,61,1,0,0,0,89,87,1,0,0,0,90,5,1,0,0,0,91,92,5,19,0,0,
+        92,93,5,1,0,0,93,94,5,20,0,0,94,95,5,1,0,0,95,96,3,8,4,0,96,97,5,
+        2,0,0,97,98,5,9,0,0,98,99,5,14,0,0,99,101,3,12,6,0,100,102,5,14,
+        0,0,101,100,1,0,0,0,101,102,1,0,0,0,102,103,1,0,0,0,103,104,5,2,
+        0,0,104,7,1,0,0,0,105,113,3,10,5,0,106,108,5,8,0,0,107,109,5,14,
+        0,0,108,107,1,0,0,0,108,109,1,0,0,0,109,110,1,0,0,0,110,112,3,10,
+        5,0,111,106,1,0,0,0,112,115,1,0,0,0,113,111,1,0,0,0,113,114,1,0,
+        0,0,114,9,1,0,0,0,115,113,1,0,0,0,116,121,5,24,0,0,117,118,5,7,0,
+        0,118,119,5,24,0,0,119,120,5,3,0,0,120,122,5,4,0,0,121,117,1,0,0,
+        0,121,122,1,0,0,0,122,11,1,0,0,0,123,129,3,14,7,0,124,125,5,8,0,
+        0,125,126,5,14,0,0,126,128,3,14,7,0,127,124,1,0,0,0,128,131,1,0,
+        0,0,129,127,1,0,0,0,129,130,1,0,0,0,130,13,1,0,0,0,131,129,1,0,0,
+        0,132,133,5,24,0,0,133,134,5,11,0,0,134,135,3,16,8,0,135,15,1,0,
+        0,0,136,143,5,16,0,0,137,143,5,15,0,0,138,143,3,18,9,0,139,143,3,
+        6,3,0,140,143,3,4,2,0,141,143,3,30,15,0,142,136,1,0,0,0,142,137,
+        1,0,0,0,142,138,1,0,0,0,142,139,1,0,0,0,142,140,1,0,0,0,142,141,
+        1,0,0,0,143,17,1,0,0,0,144,145,5,1,0,0,145,150,5,16,0,0,146,147,
+        5,8,0,0,147,149,5,16,0,0,148,146,1,0,0,0,149,152,1,0,0,0,150,148,
+        1,0,0,0,150,151,1,0,0,0,151,153,1,0,0,0,152,150,1,0,0,0,153,156,
+        5,2,0,0,154,156,5,17,0,0,155,144,1,0,0,0,155,154,1,0,0,0,156,19,
+        1,0,0,0,157,159,3,22,11,0,158,157,1,0,0,0,159,160,1,0,0,0,160,158,
+        1,0,0,0,160,161,1,0,0,0,161,21,1,0,0,0,162,163,5,3,0,0,163,168,5,
+        16,0,0,164,165,5,8,0,0,165,167,5,16,0,0,166,164,1,0,0,0,167,170,
+        1,0,0,0,168,166,1,0,0,0,168,169,1,0,0,0,169,171,1,0,0,0,170,168,
+        1,0,0,0,171,172,5,4,0,0,172,23,1,0,0,0,173,174,5,21,0,0,174,175,
+        5,10,0,0,175,178,5,16,0,0,176,177,5,10,0,0,177,179,3,26,13,0,178,
+        176,1,0,0,0,178,179,1,0,0,0,179,25,1,0,0,0,180,181,6,13,-1,0,181,
+        182,5,16,0,0,182,189,1,0,0,0,183,184,10,1,0,0,184,185,3,28,14,0,
+        185,186,3,26,13,2,186,188,1,0,0,0,187,183,1,0,0,0,188,191,1,0,0,
+        0,189,187,1,0,0,0,189,190,1,0,0,0,190,27,1,0,0,0,191,189,1,0,0,0,
+        192,193,7,0,0,0,193,29,1,0,0,0,194,195,5,23,0,0,195,196,5,14,0,0,
+        196,197,3,24,12,0,197,198,5,14,0,0,198,203,3,20,10,0,199,200,5,14,
+        0,0,200,202,3,20,10,0,201,199,1,0,0,0,202,205,1,0,0,0,203,201,1,
+        0,0,0,203,204,1,0,0,0,204,31,1,0,0,0,205,203,1,0,0,0,206,207,5,22,
+        0,0,207,208,5,7,0,0,208,209,5,18,0,0,209,33,1,0,0,0,25,37,42,48,
+        53,58,63,66,71,76,80,83,89,101,108,113,121,129,142,150,155,160,168,
+        178,189,203
     ]
 
 class MagmaParser ( Parser ):
@@ -95,14 +97,14 @@ class MagmaParser ( Parser ):
 
     literalNames = [ "<INVALID>", "'<'", "'>'", "'('", "')'", "'['", "']'", 
                      "':'", "','", "'|'", "'='", "':='", "'*'", "'^'", "'\\n'", 
-                     "<INVALID>", "<INVALID>", "<INVALID>", "'rec'", "'recformat'", 
-                     "'Order'", "'Time'" ]
+                     "<INVALID>", "<INVALID>", "'unknown'", "<INVALID>", 
+                     "'rec'", "'recformat'", "'Order'", "'Time'" ]
 
     symbolicNames = [ "<INVALID>", "LANGLE", "RANGLE", "LPAREN", "RPAREN", 
                       "LSQUARE", "RSQUARE", "COLON", "COMMA", "PIPE", "EQ", 
                       "DEF", "MULT", "EXP", "NEWLINE", "BOOLEAN", "INT", 
-                      "DECIMAL", "RECORD", "RECORD_FORMAT", "ORDER", "TIME", 
-                      "STRING_UQ", "ID", "WS" ]
+                      "UNKNOWN", "DECIMAL", "RECORD", "RECORD_FORMAT", "ORDER", 
+                      "TIME", "STRING_UQ", "ID", "WS" ]
 
     RULE_magma = 0
     RULE_outputs = 1
@@ -144,14 +146,15 @@ class MagmaParser ( Parser ):
     NEWLINE=14
     BOOLEAN=15
     INT=16
-    DECIMAL=17
-    RECORD=18
-    RECORD_FORMAT=19
-    ORDER=20
-    TIME=21
-    STRING_UQ=22
-    ID=23
-    WS=24
+    UNKNOWN=17
+    DECIMAL=18
+    RECORD=19
+    RECORD_FORMAT=20
+    ORDER=21
+    TIME=22
+    STRING_UQ=23
+    ID=24
+    WS=25
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -953,12 +956,12 @@ class MagmaParser ( Parser ):
                 self.state = 137
                 self.match(MagmaParser.BOOLEAN)
                 pass
-            elif token in [1]:
+            elif token in [1, 17]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 138
                 self.group()
                 pass
-            elif token in [18]:
+            elif token in [19]:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 139
                 self.record()
@@ -968,7 +971,7 @@ class MagmaParser ( Parser ):
                 self.state = 140
                 self.array()
                 pass
-            elif token in [22]:
+            elif token in [23]:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 141
                 self.representation_description()
@@ -1010,6 +1013,9 @@ class MagmaParser ( Parser ):
             else:
                 return self.getToken(MagmaParser.COMMA, i)
 
+        def UNKNOWN(self):
+            return self.getToken(MagmaParser.UNKNOWN, 0)
+
         def getRuleIndex(self):
             return MagmaParser.RULE_group
 
@@ -1036,25 +1042,38 @@ class MagmaParser ( Parser ):
         self.enterRule(localctx, 18, self.RULE_group)
         self._la = 0 # Token type
         try:
-            self.enterOuterAlt(localctx, 1)
-            self.state = 144
-            self.match(MagmaParser.LANGLE)
-            self.state = 145
-            self.match(MagmaParser.INT)
-            self.state = 150
+            self.state = 155
             self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            while _la==8:
-                self.state = 146
-                self.match(MagmaParser.COMMA)
-                self.state = 147
+            token = self._input.LA(1)
+            if token in [1]:
+                self.enterOuterAlt(localctx, 1)
+                self.state = 144
+                self.match(MagmaParser.LANGLE)
+                self.state = 145
                 self.match(MagmaParser.INT)
-                self.state = 152
+                self.state = 150
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
+                while _la==8:
+                    self.state = 146
+                    self.match(MagmaParser.COMMA)
+                    self.state = 147
+                    self.match(MagmaParser.INT)
+                    self.state = 152
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
 
-            self.state = 153
-            self.match(MagmaParser.RANGLE)
+                self.state = 153
+                self.match(MagmaParser.RANGLE)
+                pass
+            elif token in [17]:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 154
+                self.match(MagmaParser.UNKNOWN)
+                pass
+            else:
+                raise NoViableAltException(self)
+
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -1105,13 +1124,13 @@ class MagmaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 156 
+            self.state = 158 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 155
+                self.state = 157
                 self.permutation_part()
-                self.state = 158 
+                self.state = 160 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==3):
@@ -1178,23 +1197,23 @@ class MagmaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 160
+            self.state = 162
             self.match(MagmaParser.LPAREN)
-            self.state = 161
+            self.state = 163
             self.match(MagmaParser.INT)
-            self.state = 166
+            self.state = 168
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while _la==8:
-                self.state = 162
+                self.state = 164
                 self.match(MagmaParser.COMMA)
-                self.state = 163
+                self.state = 165
                 self.match(MagmaParser.INT)
-                self.state = 168
+                self.state = 170
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 169
+            self.state = 171
             self.match(MagmaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -1255,19 +1274,19 @@ class MagmaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 171
-            self.match(MagmaParser.ORDER)
-            self.state = 172
-            self.match(MagmaParser.EQ)
             self.state = 173
+            self.match(MagmaParser.ORDER)
+            self.state = 174
+            self.match(MagmaParser.EQ)
+            self.state = 175
             self.match(MagmaParser.INT)
-            self.state = 176
+            self.state = 178
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==10:
-                self.state = 174
+                self.state = 176
                 self.match(MagmaParser.EQ)
-                self.state = 175
+                self.state = 177
                 self.int_expression(0)
 
 
@@ -1329,12 +1348,12 @@ class MagmaParser ( Parser ):
         self.enterRecursionRule(localctx, 26, self.RULE_int_expression, _p)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 179
+            self.state = 181
             self.match(MagmaParser.INT)
             self._ctx.stop = self._input.LT(-1)
-            self.state = 187
+            self.state = 189
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,22,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
                     if self._parseListeners is not None:
@@ -1342,17 +1361,17 @@ class MagmaParser ( Parser ):
                     _prevctx = localctx
                     localctx = MagmaParser.Int_expressionContext(self, _parentctx, _parentState)
                     self.pushNewRecursionContext(localctx, _startState, self.RULE_int_expression)
-                    self.state = 181
+                    self.state = 183
                     if not self.precpred(self._ctx, 1):
                         from antlr4.error.Errors import FailedPredicateException
                         raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
-                    self.state = 182
+                    self.state = 184
                     self.int_operation()
-                    self.state = 183
+                    self.state = 185
                     self.int_expression(2) 
-                self.state = 189
+                self.state = 191
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,22,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1403,7 +1422,7 @@ class MagmaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 190
+            self.state = 192
             _la = self._input.LA(1)
             if not(_la==12 or _la==13):
                 self._errHandler.recoverInline(self)
@@ -1472,28 +1491,28 @@ class MagmaParser ( Parser ):
         self.enterRule(localctx, 30, self.RULE_representation_description)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 192
-            self.match(MagmaParser.STRING_UQ)
-            self.state = 193
-            self.match(MagmaParser.NEWLINE)
             self.state = 194
-            self.order_calculation()
+            self.match(MagmaParser.STRING_UQ)
             self.state = 195
             self.match(MagmaParser.NEWLINE)
             self.state = 196
+            self.order_calculation()
+            self.state = 197
+            self.match(MagmaParser.NEWLINE)
+            self.state = 198
             self.permutation()
-            self.state = 201
+            self.state = 203
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 197
+                    self.state = 199
                     self.match(MagmaParser.NEWLINE)
-                    self.state = 198
+                    self.state = 200
                     self.permutation() 
-                self.state = 203
+                self.state = 205
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,24,self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -1546,11 +1565,11 @@ class MagmaParser ( Parser ):
         self.enterRule(localctx, 32, self.RULE_export_duration)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 204
-            self.match(MagmaParser.TIME)
-            self.state = 205
-            self.match(MagmaParser.COLON)
             self.state = 206
+            self.match(MagmaParser.TIME)
+            self.state = 207
+            self.match(MagmaParser.COLON)
+            self.state = 208
             self.match(MagmaParser.DECIMAL)
         except RecognitionException as re:
             localctx.exception = re

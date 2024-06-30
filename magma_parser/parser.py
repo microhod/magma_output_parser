@@ -1,3 +1,4 @@
+from typing import Optional
 from antlr4 import CommonTokenStream, FileStream
 from dataclasses import dataclass
 from magma_parser.generated.MagmaLexer import MagmaLexer
@@ -12,8 +13,8 @@ class Record:
 
 @dataclass
 class GroupRep:
-    n: int
-    x: int
+    n: Optional[int]
+    x: Optional[int]
 
 
 @dataclass
@@ -63,6 +64,9 @@ class RecordOutputsVisitor(MagmaParserVisitor):
         return super().visitValue(ctx)
     
     def visitGroup(self, ctx: MagmaParser.GroupContext):
+        if ctx.UNKNOWN():
+            return GroupRep(None, None)
+
         nums = ctx.INT()
 
         return GroupRep(
