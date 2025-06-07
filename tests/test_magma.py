@@ -7,6 +7,7 @@ from magma import magma
 @pytest.mark.parametrize(
     "name",
     [
+        "groups_order_2_structured.magma",
         "bracoid.magma",
         "bracoid_and_hgs.magma",
         "groups_order_2_4.magma",
