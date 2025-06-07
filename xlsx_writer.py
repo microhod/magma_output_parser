@@ -86,11 +86,15 @@ def _write_header(
 
     row = 0
     if group.has_structure_solublity():
-        sheet.write(row, 0, "nsol")
+        sheet.merge_range(row, 0, row, non_structure_headers - 1, "nsol", book.add_format({'align': 'center'}))
+
+        border_center = book.add_format({'align': 'center', 'border': 5, 'border_color': 'black'})
         rep_index = 0
         for i in range(non_structure_headers, len(header)):
             if (i - non_structure_headers) % len(property_keys) == 0:
-                sheet.write(row, i, str(group.structures[structure_reps[rep_index]].soluble).upper())
+                structure = group.structures[structure_reps[rep_index]]
+                soluble = str(structure.soluble).upper()
+                sheet.merge_range(row, i, row, i + len(property_keys) - 1, soluble, border_center)
                 rep_index += 1
         row += 1
 

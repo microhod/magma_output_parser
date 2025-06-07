@@ -48,6 +48,7 @@ def test_csv_output(name):
     [
         "bracoid_and_hgs.magma",
         "groups_order_2_4.magma",
+        "groups_order_2_structured.magma",
     ]
 )
 def test_xlsx_output(name):    
