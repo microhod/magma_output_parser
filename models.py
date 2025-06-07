@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Self
 from dataclasses import dataclass
 
 @dataclass
@@ -53,11 +53,39 @@ class GroupPermutationRepresentation:
 
 
 @dataclass
+class GroupStructure:
+    properties: dict[str, dict[str, int]]
+    soluble: Optional[bool] = None
+
+    def zero(self) -> Self:
+        return GroupStructure(
+            soluble=self.soluble,
+            properties={
+                key: {prop: 0 for prop in properties}
+                for key, properties in self.properties.items()
+            }
+        )
+
+
+@dataclass
 class Group:
-    isom: GroupRepresentation
-    perm_isom: Optional[int]
     perm_rep: GroupPermutationRepresentation
+    isom_rep: GroupRepresentation
+    structures: dict[GroupRepresentation, GroupStructure]
     galois: dict[str, list[GaloisInfo]]
+    perm_id: Optional[int] = None
+    soluble: Optional[bool] = None
+
+
+
+def normalise_group_structures(groups: list[Group]) -> list[Group]:
+    structures = {rep: structure for g in groups for rep, structure in g.structures.items()}
+    for g in groups:
+        g.structures = {
+            rep: g.structures[rep] if rep in g.structures else structure.zero()
+            for rep, structure in structures.items()
+        }
+    return groups
 
 
 def deduplicate_galois_infos(galois_infos: list[GaloisInfo]) -> list[GaloisInfo]:
@@ -77,7 +105,7 @@ def deduplicate_galois_infos(galois_infos: list[GaloisInfo]) -> list[GaloisInfo]
 # added in with zero'd GN values
 def normalise_group_galois_types(groups: list[Group]) -> list[Group]:
     # sort groups by their isometry
-    groups.sort(key=lambda g: g.isom)
+    groups.sort(key=lambda g: g.isom_rep)
 
     for type in list(groups[0].galois.keys()):
         groups = _normalise_group_galois_types(groups, type)

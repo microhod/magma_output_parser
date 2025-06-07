@@ -9,7 +9,7 @@ def write(groups: list[Group], output_dir: str):
         return
     
     # ensure groups are sorted by isometry
-    groups.sort(key=lambda g: g.isom)
+    groups.sort(key=lambda g: g.isom_rep)
 
     galois_types = list(groups[0].galois.keys())
     for type in galois_types:
@@ -23,7 +23,7 @@ def _write_galois_type(groups: list[Group], type: str, output_file):
     # construct CSV header
     header = ["group", "isom"]
     # check first group to decide if we should include perm_isom
-    if groups[0].perm_isom:
+    if groups[0].perm_id:
         header.append("perm_isom")
     # we assume there is at least 1 group and at least 1 galois info for each group.
     galois_keys = [key for key in groups[0].galois[type][0].nums.keys()]
@@ -38,9 +38,9 @@ def _write_galois_type(groups: list[Group], type: str, output_file):
         w.writerow(header)
 
         for g in groups:
-            row = [g.perm_rep, g.isom]
+            row = [g.perm_rep, g.isom_rep]
             if "perm_isom" in header:
-                row.append(g.perm_isom)
+                row.append(g.perm_id)
             for galois in g.galois[type]:
                 row.extend(galois.nums[key] for key in galois_keys)
             w.writerow(row)

@@ -9,7 +9,7 @@ def write(groups: list[Group], output_dir: str):
         return
     
     # ensure groups are sorted by isometry
-    groups.sort(key=lambda g: g.isom)
+    groups.sort(key=lambda g: g.isom_rep)
 
     galois_types = list(groups[0].galois.keys())
     n = -1
@@ -28,7 +28,7 @@ def _write_galois_type(book: Workbook, sheet: Worksheet, groups: list[Group], ga
     # construct header
     header = ["group", "isom"]
     # check first group to decide if we should include perm_isom
-    if groups[0].perm_isom:
+    if groups[0].perm_id:
         header.append("perm_isom")
 
     non_galois_headers = len(header)
@@ -58,9 +58,9 @@ def _write_galois_type(book: Workbook, sheet: Worksheet, groups: list[Group], ga
 
     row_num = 1
     for g in groups:
-        row = [g.perm_rep, g.isom]
+        row = [g.perm_rep, g.isom_rep]
         if "perm_isom" in header:
-            row.append(g.perm_isom)
+            row.append(g.perm_id)
         for galois in g.galois[galois_type]:
             row.extend(galois.nums[key] for key in galois_keys)
 
