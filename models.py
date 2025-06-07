@@ -65,6 +65,12 @@ class GroupStructure:
                 for key, properties in self.properties.items()
             }
         )
+    
+    def property_types(self) -> list[str]:
+        return self.properties.keys()
+
+    def property_keys(self, property_type: str) -> list[str]:
+        return self.properties[property_type].keys()
 
 
 @dataclass
@@ -75,6 +81,20 @@ class Group:
     galois: dict[str, list[GaloisInfo]]
     perm_id: Optional[int] = None
     soluble: Optional[bool] = None
+
+    def order(self) -> int:
+        rep = next(iter(self.structures.keys()))
+        return rep.n
+
+    def structure_property_types(self) -> list[str]:
+        # all structures are assumed to have equal property types
+        structure = next(iter(self.structures.values()))
+        return structure.property_types()
+    
+    def structure_property_keys(self, property_type: str) -> list[str]:
+        # all structures are assumed to have equal property keys, given the same type
+        structure = next(iter(self.structures.values()))
+        return structure.property_keys(property_type)
 
 
 

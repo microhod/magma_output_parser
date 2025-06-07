@@ -10,7 +10,7 @@ import sys
 
 import csv_writer
 import magma_parser.parser as magma_parser
-from models import GaloisInfo, Group, GroupPermutationRepresentation, GroupRepresentation, GroupStructure, Permutation, normalise_group_galois_types
+from models import GaloisInfo, Group, GroupPermutationRepresentation, GroupRepresentation, GroupStructure, Permutation, normalise_group_galois_types, normalise_group_structures
 import xlsx_writer
 
 
@@ -106,6 +106,7 @@ def parse(filepath: str) -> list[list[Group]]:
 def magma(input_file, output_dir, writer):
     for groups in parse(input_file):
         groups = normalise_group_galois_types(groups)
+        groups = normalise_group_structures(groups)
 
         match writer:
             case "csv":
