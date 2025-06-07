@@ -19,14 +19,12 @@ def parse_group(record: magma_parser.Record) -> Group:
     if isom is None:
         raise ValueError("expected field 'isomtype' or 'isom'")
 
-    # perm_isom is optional
-    perm_isom = record.fields.get('permID') or record.fields.get('perm_isom')
+    perm_id = record.fields.get('permID') or record.fields.get('perm_isom')
+    soluble = record.fields.get('Gsol')
 
-    equiv_rep: magma_parser.GroupRepDesc = record.fields.get('equiv_rep')
-    if equiv_rep is None:
-        # TODO: remove this hack when this field exists again
-        # raise ValueError("expected field 'equiv_rep'")
-        equiv_rep = magma_parser.GroupRepDesc(permutations=[])
+    perm_rep: magma_parser.GroupRepDesc = record.fields.get('equiv_rep')
+    if 'structures' in record.fields:
+        perm_rep = record.fields.get('structures')[0].fields.get('group')
 
     structures = {}
     for sub_record in record.fields.get('structures', []):
@@ -79,10 +77,11 @@ def parse_group(record: magma_parser.Record) -> Group:
 
     return Group(
         perm_rep=GroupPermutationRepresentation(
-            perms=[Permutation(p.parts) for p in equiv_rep.permutations]
+            perms=[Permutation(p.parts) for p in perm_rep.permutations]
         ),
-        perm_id=perm_isom,
+        perm_id=perm_id,
         isom_rep=GroupRepresentation(isom.n, isom.x),
+        soluble=soluble,
         structures=structures,
         galois=galois_infos,
     )
