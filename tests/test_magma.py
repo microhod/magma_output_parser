@@ -72,6 +72,3 @@ def test_xlsx_output(name):
 def clear_dir(path: str):
     for f in glob.glob(f"{path}/*"):
         os.remove(f)
-        
-
-

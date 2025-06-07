@@ -116,15 +116,6 @@ class MagmaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MagmaParser#order_calculation.
-    def enterOrder_calculation(self, ctx:MagmaParser.Order_calculationContext):
-        pass
-
-    # Exit a parse tree produced by MagmaParser#order_calculation.
-    def exitOrder_calculation(self, ctx:MagmaParser.Order_calculationContext):
-        pass
-
-
     # Enter a parse tree produced by MagmaParser#int_expression.
     def enterInt_expression(self, ctx:MagmaParser.Int_expressionContext):
         pass
@@ -143,12 +134,21 @@ class MagmaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MagmaParser#representation_description.
-    def enterRepresentation_description(self, ctx:MagmaParser.Representation_descriptionContext):
+    # Enter a parse tree produced by MagmaParser#relation.
+    def enterRelation(self, ctx:MagmaParser.RelationContext):
         pass
 
-    # Exit a parse tree produced by MagmaParser#representation_description.
-    def exitRepresentation_description(self, ctx:MagmaParser.Representation_descriptionContext):
+    # Exit a parse tree produced by MagmaParser#relation.
+    def exitRelation(self, ctx:MagmaParser.RelationContext):
+        pass
+
+
+    # Enter a parse tree produced by MagmaParser#multiline_value.
+    def enterMultiline_value(self, ctx:MagmaParser.Multiline_valueContext):
+        pass
+
+    # Exit a parse tree produced by MagmaParser#multiline_value.
+    def exitMultiline_value(self, ctx:MagmaParser.Multiline_valueContext):
         pass
 
 

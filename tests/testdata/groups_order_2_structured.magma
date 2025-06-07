@@ -1,0 +1,29 @@
+[
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 1,
+        isomtype := <2, 1>,
+        permID := 1,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Symmetric group acting on a set of cardinality 2
+                Order = 2
+                    (1, 2),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 1,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                    IDtype := <2,1>,
+                    Nsol := true>>
+        ]>
+]

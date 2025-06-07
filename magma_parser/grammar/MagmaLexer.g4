@@ -50,6 +50,10 @@ DEF
 MULT
     : '*'
     ;
+    
+MINUS
+    : '-'
+    ;
 
 EXP
     : '^'
@@ -87,12 +91,16 @@ RECORD_FORMAT
     : 'recformat'
     ;
 
-ORDER
-    : 'Order'
-    ;
-
 TIME
     : 'Time'
+    ;
+
+GENERATOR
+    : '$.'INT
+    ;
+
+IDENDITY
+    : 'Id($)'
     ;
 
 STRING_UQ

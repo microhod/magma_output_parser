@@ -69,11 +69,6 @@ class MagmaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MagmaParser#order_calculation.
-    def visitOrder_calculation(self, ctx:MagmaParser.Order_calculationContext):
-        return self.visitChildren(ctx)
-
-
     # Visit a parse tree produced by MagmaParser#int_expression.
     def visitInt_expression(self, ctx:MagmaParser.Int_expressionContext):
         return self.visitChildren(ctx)
@@ -84,8 +79,13 @@ class MagmaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MagmaParser#representation_description.
-    def visitRepresentation_description(self, ctx:MagmaParser.Representation_descriptionContext):
+    # Visit a parse tree produced by MagmaParser#relation.
+    def visitRelation(self, ctx:MagmaParser.RelationContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by MagmaParser#multiline_value.
+    def visitMultiline_value(self, ctx:MagmaParser.Multiline_valueContext):
         return self.visitChildren(ctx)
 
 

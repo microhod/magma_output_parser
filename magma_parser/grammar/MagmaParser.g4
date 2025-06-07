@@ -45,7 +45,7 @@ value
     | group
     | record
     | array
-    | representation_description
+    | multiline_value
     ;
 
 group
@@ -61,9 +61,6 @@ permutation_part
     : '(' INT (',' INT)* ')'
     ;
 
-order_calculation
-    : ORDER '=' INT ('=' int_expression)?
-    ;
 
 int_expression
     : INT
@@ -75,8 +72,13 @@ int_operation
     | EXP
     ;
 
-representation_description
-    : STRING_UQ '\n' order_calculation '\n' permutation ('\n' permutation)*
+relation
+    : GENERATOR EXP INT EQ IDENDITY
+    ;
+
+// TODO: investigate making the parser indentation-aware to remove the need for these special cases
+multiline_value
+    : STRING_UQ ('=' int_expression)? '\n' (ID '=' INT ('=' int_expression)? | ID '-' ID ':') (('\n' relation ',')* '\n' relation | ('\n' permutation)+)
     ;
 
 export_duration

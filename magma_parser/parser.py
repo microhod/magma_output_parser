@@ -1,3 +1,5 @@
+import sys
+
 from typing import Optional
 from antlr4 import CommonTokenStream, FileStream
 from dataclasses import dataclass
@@ -74,7 +76,7 @@ class RecordOutputsVisitor(MagmaParserVisitor):
             x=self.visitInt(nums[1])
         )
     
-    def visitRepresentation_description(self, ctx: MagmaParser.Representation_descriptionContext):
+    def visitMultiline_value(self, ctx: MagmaParser.Multiline_valueContext):
         return GroupRepDesc(
             permutations=[ self.visit(element) for element in ctx.permutation() ]
         )
