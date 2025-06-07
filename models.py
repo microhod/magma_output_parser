@@ -88,6 +88,10 @@ class Group:
         # all structures are assumed to have equal property keys, given the same type
         structure = next(iter(self.structures.values()))
         return structure.property_keys(property_type)
+    
+    def has_structure_solublity(self) -> bool:
+        structure = next(iter(self.structures.values()))
+        return structure.soluble is not None
 
 
 

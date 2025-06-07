@@ -24,11 +24,15 @@ def _write_structure_type(groups: list[Group], property_type: str, output_file):
     g = groups[0]
     if g.perm_id is not None:
         header.append("perm_isom")
+    if g.soluble is not None:
+        header.append("gsol")
     # we assume there is at least 1 structure for each group.
     structure_reps = sorted(g.structures.keys())
     property_keys = list(g.structure_property_keys(property_type))
     for rep in structure_reps:
         header.extend([f"{rep}.{key}" for key in property_keys])
+        if g.structures[rep].soluble is not None:
+            header.append(f"{rep}.nsol")
     
     # have to set newline="" because otherwise windows gets blank lines
     # https://stackoverflow.com/a/3348664
@@ -40,6 +44,11 @@ def _write_structure_type(groups: list[Group], property_type: str, output_file):
             row = [g.perm_rep, g.isom_rep]
             if "perm_isom" in header:
                 row.append(g.perm_id)
+            if "gsol" in header:
+                row.append(str(g.soluble).upper())
             for rep in structure_reps:
-                row.extend(g.structures[rep].properties[property_type][key] for key in property_keys)
+                structure = g.structures[rep]
+                row.extend(structure.properties[property_type][key] for key in property_keys)
+                if structure.soluble is not None:
+                    row.append(str(structure.soluble).upper())
             w.writerow(row)

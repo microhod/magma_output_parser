@@ -1,2 +1,2 @@
-group,isom,perm_isom,<2:1>.total,<2:1>.Sbrace,<2:1>.AC
-"<(1,2)>",<2:1>,1,1,1,1
+group,isom,perm_isom,gsol,<2:1>.total,<2:1>.Sbrace,<2:1>.AC,<2:1>.nsol
+"<(1,2)>",<2:1>,1,TRUE,1,1,1,TRUE
