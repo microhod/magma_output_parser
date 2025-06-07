@@ -28,12 +28,6 @@ class GroupRepresentation:
 
 
 @dataclass
-class GaloisInfo:
-    type: GroupRepresentation
-    nums: dict[str, int]
-
-
-@dataclass
 class Permutation:
     parts: list[tuple[int]]
 
@@ -78,7 +72,6 @@ class Group:
     perm_rep: GroupPermutationRepresentation
     isom_rep: GroupRepresentation
     structures: dict[GroupRepresentation, GroupStructure]
-    galois: dict[str, list[GaloisInfo]]
     perm_id: Optional[int] = None
     soluble: Optional[bool] = None
 
@@ -105,57 +98,4 @@ def normalise_group_structures(groups: list[Group]) -> list[Group]:
             rep: g.structures[rep] if rep in g.structures else structure.zero()
             for rep, structure in structures.items()
         }
-    return groups
-
-
-def deduplicate_galois_infos(galois_infos: list[GaloisInfo]) -> list[GaloisInfo]:
-    deduped = []
-    seen_types = set()
-    for info in galois_infos:
-        if info.type in seen_types:
-            continue
-
-        seen_types.add(info.type)
-        deduped.append(info)
-
-    return deduped
-
-
-# normalise_group_galois_types ensures all groups have the same galois types, with any missing types
-# added in with zero'd GN values
-def normalise_group_galois_types(groups: list[Group]) -> list[Group]:
-    # sort groups by their isometry
-    groups.sort(key=lambda g: g.isom_rep)
-
-    for type in list(groups[0].galois.keys()):
-        groups = _normalise_group_galois_types(groups, type)
-
-    return groups
-
-def _normalise_group_galois_types(groups: list[Group], galois_type: str) -> list[Group]:
-    # get sorted list of all galois types and sort all group galois types
-    # so they can be compared index by index
-    galois_types = set()
-    for group in groups:
-        # galois can be duplicated, so we should remove duplicates
-        group.galois[galois_type] = deduplicate_galois_infos(group.galois[galois_type])
-
-        galois_types.update([galois.type for galois in group.galois[galois_type]])
-        group.galois[galois_type].sort(key=lambda galois: galois.type)
-
-    all_galois_types = list(galois_types)
-    all_galois_types.sort()
-
-    for group in groups:
-        for i, type in enumerate(all_galois_types):
-            if i < len(group.galois[galois_type]) and group.galois[galois_type][i].type == type:
-                continue
-
-            # we assume there is at least 1 galois info for each group.
-            num_keys = list(group.galois[galois_type][0].nums.keys())
-
-            # insert missing type with zero GN values at the correct index
-            zero_galois = GaloisInfo(type=type, nums={key: 0 for key in num_keys})
-            group.galois[galois_type] = group.galois[galois_type][:i] +[zero_galois] + group.galois[galois_type][i:]
-
     return groups

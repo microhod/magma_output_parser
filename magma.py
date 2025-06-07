@@ -10,7 +10,7 @@ import sys
 
 import csv_writer
 import magma_parser.parser as magma_parser
-from models import GaloisInfo, Group, GroupPermutationRepresentation, GroupRepresentation, GroupStructure, Permutation, normalise_group_galois_types, normalise_group_structures
+from models import Group, GroupPermutationRepresentation, GroupRepresentation, GroupStructure, Permutation, normalise_group_structures
 import xlsx_writer
 
 
@@ -55,26 +55,6 @@ def parse_group(record: magma_parser.Record) -> Group:
             structures[rep] = GroupStructure(properties={})
         structures[rep].properties['bracoid'] = sub_record.fields    
 
-    # TODO: remove all 'galois' references
-    galois_fields = {}
-    if record.fields.get('HGS_GN'):
-        galois_fields['hgs'] = record.fields.get('HGS_GN')
-    if record.fields.get('sbracoid_GN'):
-        galois_fields['bracoid'] = record.fields.get('sbracoid_GN')
-
-    galois_infos = {}
-    for type in galois_fields:
-        galois_infos[type] = []
-
-        for field in galois_fields[type]:
-            sub_record: magma_parser.Record = field[0]
-            group_rep: magma_parser.GroupRep = field[1]
-
-            galois_infos[type].append(GaloisInfo(
-                type=GroupRepresentation(group_rep.n, group_rep.x),
-                nums=sub_record.fields
-            ))
-
     return Group(
         perm_rep=GroupPermutationRepresentation(
             perms=[Permutation(p.parts) for p in perm_rep.permutations]
@@ -83,7 +63,6 @@ def parse_group(record: magma_parser.Record) -> Group:
         isom_rep=GroupRepresentation(isom.n, isom.x),
         soluble=soluble,
         structures=structures,
-        galois=galois_infos,
     )
 
 
@@ -105,7 +84,6 @@ def parse(filepath: str) -> list[list[Group]]:
 
 def magma(input_file, output_dir, writer):
     for groups in parse(input_file):
-        groups = normalise_group_galois_types(groups)
         groups = normalise_group_structures(groups)
 
         match writer:
