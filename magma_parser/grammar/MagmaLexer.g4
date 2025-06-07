@@ -95,6 +95,10 @@ TIME
     : 'Time'
     ;
 
+DEGREE
+    : 'Degree'
+    ;
+
 GENERATOR
     : '$.'INT
     ;

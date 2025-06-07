@@ -1,0 +1,306 @@
+Degree 2:
+[
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 1,
+        isomtype := <2, 1>,
+        permID := 1,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Symmetric group acting on a set of cardinality 2
+                Order = 2
+                    (1, 2),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 1,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                    IDtype := <2,1>,
+                    Nsol := true>>
+        ]>
+]
+Time: 0.050
+Degree 3:
+[
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 1,
+        isomtype := <3, 1>,
+        permID := 1,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 3
+                Order = 3
+                    (1, 2, 3),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 1,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 3
+                    PC-Relations:
+                        $.1^3 = Id($),
+                    IDtype := <3,1>,
+                    Nsol := true>>
+        ]>,
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 1,
+        isomtype := <6, 1>,
+        permID := 2,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Symmetric group acting on a set of cardinality 3
+                Order = 6 = 2 * 3
+                    (2, 3)
+                    (1, 2, 3),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 0,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 0,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 3
+                    PC-Relations:
+                        $.1^3 = Id($),
+                    IDtype := <3,1>,
+                    Nsol := true>>
+        ]>
+]
+Time: 0.010
+Degree 4:
+[
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 2,
+        isomtype := <4, 2>,
+        permID := 2,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 4 = 2^2
+                    (1, 3)(2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 3,
+                    Gal := 3,
+                    AC := 0,
+                    BC := 0>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 0>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = $.2,
+                    IDtype := <4,1>,
+                    Nsol := true>>,
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 4 = 2^2
+                    (1, 3)(2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 1,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                        $.2^2 = Id($),
+                    IDtype := <4,2>,
+                    Nsol := true>>
+        ]>,
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 4,
+        isomtype := <4, 1>,
+        permID := 1,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 4 = 2^2
+                    (1, 3, 2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 1,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = $.2,
+                    IDtype := <4,1>,
+                    Nsol := true>>,
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 4 = 2^2
+                    (1, 3, 2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 3,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 1,
+                    AC := 0,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 1,
+                    AC := 0>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                        $.2^2 = Id($),
+                    IDtype := <4,2>,
+                    Nsol := true>>
+        ]>,
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 4,
+        isomtype := <8, 3>,
+        permID := 3,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 8 = 2^3
+                    (3, 4)
+                    (1, 3, 2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 0,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 0,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = $.2,
+                    IDtype := <4,1>,
+                    Nsol := true>>,
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 8 = 2^3
+                    (3, 4)
+                    (1, 3)(2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 3,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 0,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 0,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                        $.2^2 = Id($),
+                    IDtype := <4,2>,
+                    Nsol := true>>
+        ]>,
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 1,
+        isomtype := <12, 3>,
+        permID := 4,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Permutation group acting on a set of cardinality 4
+                Order = 12 = 2^2 * 3
+                    (2, 4, 3)
+                    (1, 3)(2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 0,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 0,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                        $.2^2 = Id($),
+                    IDtype := <4,2>,
+                    Nsol := true>>
+        ]>,
+    rec<recformat<classsize, isomtype, permID, Gsol, structures> |
+        classsize := 1,
+        isomtype := <24, 12>,
+        permID := 5,
+        Gsol := true,
+        structures := [
+            rec<recformat<group, numgrps, HGS, SB, type> |
+                group := Symmetric group acting on a set of cardinality 4
+                Order = 24 = 2^3 * 3
+                    (3, 4)
+                    (2, 4, 3)
+                    (1, 3)(2, 4)
+                    (1, 2)(3, 4),
+                numgrps := 1,
+                HGS := rec<recformat<total, Gal, AC, BC> |
+                    total := 1,
+                    Gal := 0,
+                    AC := 1,
+                    BC := 1>,
+                SB := rec<recformat<total, Sbrace, AC> |
+                    total := 1,
+                    Sbrace := 0,
+                    AC := 1>,
+                type := rec<recformat<type, IDtype, Nsol> |
+                    type := GrpPC of order 4 = 2^2
+                    PC-Relations:
+                        $.1^2 = Id($),
+                        $.2^2 = Id($),
+                    IDtype := <4,2>,
+                    Nsol := true>>
+        ]>
+]
