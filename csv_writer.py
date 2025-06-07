@@ -9,27 +9,30 @@ def write(groups: list[Group], output_dir: str):
         return
     
     # ensure groups are sorted by isometry
-    groups.sort(key=lambda g: g.isom)
+    groups.sort(key=lambda g: g.isom_rep)
 
-    galois_types = list(groups[0].galois.keys())
-    for type in galois_types:
-        # get the order of the group list
-        n = groups[0].galois[type][0].type.n
-        output_file = os.path.join(output_dir, f"groups_{n}_{type}.csv")
-        _write_galois_type(groups, type, output_file)
+    g = groups[0]
+    for property_type in g.structure_property_types():
+        output_file = os.path.join(output_dir, f"groups_{g.order()}_{property_type}.csv")
+        _write_structure_type(groups, property_type, output_file)
 
 
-def _write_galois_type(groups: list[Group], type: str, output_file):
+def _write_structure_type(groups: list[Group], property_type: str, output_file):
     # construct CSV header
     header = ["group", "isom"]
-    # check first group to decide if we should include perm_isom
-    if groups[0].perm_isom:
+    # check first group to decide the rest of the header
+    g = groups[0]
+    if g.perm_id is not None:
         header.append("perm_isom")
-    # we assume there is at least 1 group and at least 1 galois info for each group.
-    galois_keys = [key for key in groups[0].galois[type][0].nums.keys()]
-    for galois in groups[0].galois[type]:
-        header.extend([f"{galois.type}.{key}" for key in galois_keys])
-        pass
+    if g.soluble is not None:
+        header.append("gsol")
+    # we assume there is at least 1 structure for each group.
+    structure_reps = sorted(g.structures.keys())
+    property_keys = list(g.structure_property_keys(property_type))
+    for rep in structure_reps:
+        header.extend([f"{rep}.{key}" for key in property_keys])
+        if g.structures[rep].soluble is not None:
+            header.append(f"{rep}.nsol")
     
     # have to set newline="" because otherwise windows gets blank lines
     # https://stackoverflow.com/a/3348664
@@ -38,9 +41,14 @@ def _write_galois_type(groups: list[Group], type: str, output_file):
         w.writerow(header)
 
         for g in groups:
-            row = [g.perm_rep, g.isom]
+            row = [g.perm_rep, g.isom_rep]
             if "perm_isom" in header:
-                row.append(g.perm_isom)
-            for galois in g.galois[type]:
-                row.extend(galois.nums[key] for key in galois_keys)
+                row.append(g.perm_id)
+            if "gsol" in header:
+                row.append(str(g.soluble).upper())
+            for rep in structure_reps:
+                structure = g.structures[rep]
+                row.extend(structure.properties[property_type][key] for key in property_keys)
+                if structure.soluble is not None:
+                    row.append(str(structure.soluble).upper())
             w.writerow(row)

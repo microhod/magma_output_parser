@@ -10,50 +10,59 @@ import sys
 
 import csv_writer
 import magma_parser.parser as magma_parser
-from models import GaloisInfo, Group, GroupPermutationRepresentation, GroupRepresentation, Permutation, normalise_group_galois_types
+from models import Group, GroupPermutationRepresentation, GroupRepresentation, GroupStructure, Permutation, normalise_group_structures
 import xlsx_writer
 
 
 def parse_group(record: magma_parser.Record) -> Group:
-    isom: magma_parser.GroupRep = record.fields.get('isom')
+    isom: magma_parser.GroupRep = record.fields.get('isomtype') or record.fields.get('isom')
     if isom is None:
-        raise ValueError("expected field 'isom'")
+        raise ValueError("expected field 'isomtype' or 'isom'")
 
-    # perm_isom is optional
-    perm_isom = record.fields.get('perm_isom')
+    perm_id = record.fields.get('permID') or record.fields.get('perm_isom')
+    soluble = record.fields.get('Gsol')
 
-    equiv_rep: magma_parser.GroupRepDesc = record.fields.get('equiv_rep')
-    if isom is None:
-        raise ValueError("expected field 'equiv_rep'")
+    perm_rep: magma_parser.GroupRepDesc = record.fields.get('equiv_rep')
+    if 'structures' in record.fields:
+        perm_rep = record.fields.get('structures')[0].fields.get('group')
 
-    galois_fields = {}
-    if record.fields.get('HGS_GN'):
-        galois_fields['hgs'] = record.fields.get('HGS_GN')
-    if record.fields.get('sbracoid_GN'):
-        galois_fields['bracoid'] = record.fields.get('sbracoid_GN')
-    if len(galois_fields) == 0:
-        raise ValueError("expected galois field 'HGS_GN' or 'sbracoid_GN'")
+    structures = {}
+    for sub_record in record.fields.get('structures', []):
+        sub_record_type = sub_record.fields.get('type')
+        id_type: magma_parser.GroupRep = sub_record_type.fields.get('IDtype')
 
-    galois_infos = {}
-    for type in galois_fields:
-        galois_infos[type] = []
+        structures[GroupRepresentation(id_type.n, id_type.x)] = GroupStructure(
+            properties={
+                'hgs': sub_record.fields.get('HGS').fields,
+                'bracoid': sub_record.fields.get('SB').fields,
+            },
+            soluble=sub_record_type.fields.get('Nsol'),
+        )
 
-        for field in galois_fields[type]:
-            record: magma_parser.Record = field[0]
-            group_rep: magma_parser.GroupRep = field[1]
+    # backwards compatibility with old non-structred record layout
+    for elem in record.fields.get('HGS_GN', []):
+        sub_record: magma_parser.Record = elem[0]
+        rep = GroupRepresentation(elem[1].n, elem[1].x)
 
-            galois_infos[type].append(GaloisInfo(
-                type=GroupRepresentation(group_rep.n, group_rep.x),
-                nums=record.fields
-            ))
+        if rep not in structures:
+            structures[rep] = GroupStructure(properties={})
+        structures[rep].properties['hgs'] = sub_record.fields
+    for elem in record.fields.get('sbracoid_GN', []):
+        sub_record: magma_parser.Record = elem[0]
+        rep = GroupRepresentation(elem[1].n, elem[1].x)
+
+        if rep not in structures:
+            structures[rep] = GroupStructure(properties={})
+        structures[rep].properties['bracoid'] = sub_record.fields    
 
     return Group(
-        isom=GroupRepresentation(isom.n, isom.x),
-        perm_isom=perm_isom,
         perm_rep=GroupPermutationRepresentation(
-            perms=[Permutation(p.parts) for p in equiv_rep.permutations]
+            perms=[Permutation(p.parts) for p in perm_rep.permutations]
         ),
-        galois=galois_infos
+        perm_id=perm_id,
+        isom_rep=GroupRepresentation(isom.n, isom.x),
+        soluble=soluble,
+        structures=structures,
     )
 
 
@@ -75,13 +84,16 @@ def parse(filepath: str) -> list[list[Group]]:
 
 def magma(input_file, output_dir, writer):
     for groups in parse(input_file):
-        groups = normalise_group_galois_types(groups)
+        groups = normalise_group_structures(groups)
 
         match writer:
             case "csv":
                 csv_writer.write(groups, output_dir)
             case "xlsx":
                 xlsx_writer.write(groups, output_dir)
+            case "stdout":
+                for g in groups:
+                    print(g)
             case _:
                 raise ValueError(f'unsupported writer [{writer}]')
 

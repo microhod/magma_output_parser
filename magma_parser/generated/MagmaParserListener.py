@@ -152,12 +152,12 @@ class MagmaParserListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by MagmaParser#export_duration.
-    def enterExport_duration(self, ctx:MagmaParser.Export_durationContext):
+    # Enter a parse tree produced by MagmaParser#metadata.
+    def enterMetadata(self, ctx:MagmaParser.MetadataContext):
         pass
 
-    # Exit a parse tree produced by MagmaParser#export_duration.
-    def exitExport_duration(self, ctx:MagmaParser.Export_durationContext):
+    # Exit a parse tree produced by MagmaParser#metadata.
+    def exitMetadata(self, ctx:MagmaParser.MetadataContext):
         pass
 
 

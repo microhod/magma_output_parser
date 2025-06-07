@@ -11,7 +11,7 @@ magma
     ;
 
 outputs
-    : array (('\n' export_duration)? '\n' array)* ('\n' export_duration)? '\n'*
+    : (metadata '\n')* array (('\n' metadata)* '\n' array)* ('\n' metadata)* '\n'*
     ;
 
 array
@@ -73,7 +73,8 @@ int_operation
     ;
 
 relation
-    : GENERATOR EXP INT EQ IDENDITY
+    : GENERATOR (EXP INT)? EQ IDENDITY
+    | GENERATOR (EXP INT)? EQ GENERATOR (EXP INT)?
     ;
 
 // TODO: investigate making the parser indentation-aware to remove the need for these special cases
@@ -81,6 +82,7 @@ multiline_value
     : STRING_UQ ('=' int_expression)? '\n' (ID '=' INT ('=' int_expression)? | ID '-' ID ':') (('\n' relation ',')* '\n' relation | ('\n' permutation)+)
     ;
 
-export_duration
+metadata
     : TIME ':' DECIMAL
+    | STRING_UQ ':'
     ;

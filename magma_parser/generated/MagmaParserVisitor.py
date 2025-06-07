@@ -89,8 +89,8 @@ class MagmaParserVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by MagmaParser#export_duration.
-    def visitExport_duration(self, ctx:MagmaParser.Export_durationContext):
+    # Visit a parse tree produced by MagmaParser#metadata.
+    def visitMetadata(self, ctx:MagmaParser.MetadataContext):
         return self.visitChildren(ctx)
 
 

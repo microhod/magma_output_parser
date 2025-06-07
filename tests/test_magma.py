@@ -7,6 +7,8 @@ from magma import magma
 @pytest.mark.parametrize(
     "name",
     [
+        "groups_order_2_structured.magma",
+        "groups_order_2_4_structured.magma",
         "bracoid.magma",
         "bracoid_and_hgs.magma",
         "groups_order_2_4.magma",
@@ -47,6 +49,8 @@ def test_csv_output(name):
     [
         "bracoid_and_hgs.magma",
         "groups_order_2_4.magma",
+        "groups_order_2_structured.magma",
+        "groups_order_2_4_structured.magma",
     ]
 )
 def test_xlsx_output(name):    

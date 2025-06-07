@@ -2,67 +2,42 @@ import xlsxwriter
 from xlsxwriter import Workbook
 from xlsxwriter.worksheet import Worksheet
 
-from models import Group
+from models import Group, GroupRepresentation
 
 def write(groups: list[Group], output_dir: str):
     if len(groups) == 0:
         return
     
     # ensure groups are sorted by isometry
-    groups.sort(key=lambda g: g.isom)
+    groups.sort(key=lambda g: g.isom_rep)
 
-    galois_types = list(groups[0].galois.keys())
-    n = -1
-    for type in list(groups[0].galois.keys()):
-        # get the order of the group list
-        n = groups[0].galois[type][0].type.n
-        break
-
-    with xlsxwriter.Workbook(f'{output_dir}/groups_{n}.xlsx') as workbook:
-        for type in galois_types:
-            sheet = workbook.add_worksheet(type)
-            _write_galois_type(workbook, sheet, groups, type)
+    g = groups[0]
+    with xlsxwriter.Workbook(f'{output_dir}/groups_{g.order()}.xlsx') as workbook:
+        for property_type in g.structure_property_types():
+            sheet = workbook.add_worksheet(property_type)
+            _write_structure_type(workbook, sheet, groups, property_type)
 
 
-def _write_galois_type(book: Workbook, sheet: Worksheet, groups: list[Group], galois_type: str):
-    # construct header
-    header = ["group", "isom"]
-    # check first group to decide if we should include perm_isom
-    if groups[0].perm_isom:
-        header.append("perm_isom")
+def _write_structure_type(book: Workbook, sheet: Worksheet, groups: list[Group], property_type: str):
+    structure_reps = sorted(groups[0].structures.keys())
+    property_keys = list(groups[0].structure_property_keys(property_type))
+    header, non_structure_headers, header_rows = _write_header(
+        book,
+        sheet,
+        groups[0],
+        structure_reps,
+        property_keys,
+    )
 
-    non_galois_headers = len(header)
-    
-    # we assume there is at least 1 group and at least 1 galois info for each group.
-    galois_keys = [key for key in groups[0].galois[galois_type][0].nums.keys()]
-    for galois in groups[0].galois[galois_type]:
-        header.extend([f"{galois.type}.{key}" for key in galois_keys])
-        pass
-
-    for i, name in enumerate(header):
-        fmt = book.add_format()
-        fmt.set_border()
-        fmt.set_border_color('gray')
-        # put thick black borders around galois fields
-        if i >= non_galois_headers:
-            fmt.set_top(5)
-            fmt.set_top_color('black')
-            if (i - non_galois_headers) % len(galois_keys) == 0:
-                fmt.set_left(5)
-                fmt.set_left_color('black')
-            if (i - non_galois_headers) % len(galois_keys) == len(galois_keys)-1:
-                fmt.set_right(5)
-                fmt.set_right_color('black')
-
-        sheet.write(0, i, name, fmt)
-
-    row_num = 1
+    row_num = header_rows
     for g in groups:
-        row = [g.perm_rep, g.isom]
+        row = [g.perm_rep, g.isom_rep]
         if "perm_isom" in header:
-            row.append(g.perm_isom)
-        for galois in g.galois[galois_type]:
-            row.extend(galois.nums[key] for key in galois_keys)
+            row.append(g.perm_id)
+        if "gsol" in header:
+            row.append(str(g.soluble).upper())
+        for rep in structure_reps:
+            row.extend(g.structures[rep].properties[property_type][key] for key in property_keys)
 
         row = [str(x) for x in row]
         for i, x in enumerate(row):
@@ -73,15 +48,15 @@ def _write_galois_type(book: Workbook, sheet: Worksheet, groups: list[Group], ga
             # grey out zero fields
             if x == "0":
                 fmt.set_bg_color('#D0CFD0')
-            # put thick black borders around galois fields
-            if i >= non_galois_headers:
-                if (i - non_galois_headers) % len(galois_keys) == 0:
+            # put thick black borders around structure fields
+            if i >= non_structure_headers:
+                if (i - non_structure_headers) % len(property_keys) == 0:
                     fmt.set_left(5)
                     fmt.set_left_color('black')
-                if (i - non_galois_headers) % len(galois_keys) == len(galois_keys)-1:
+                if (i - non_structure_headers) % len(property_keys) == len(property_keys)-1:
                     fmt.set_right(5)
                     fmt.set_right_color('black')
-                if i >= non_galois_headers and row_num == len(groups):
+                if i >= non_structure_headers and row_num == len(groups)+header_rows-1:
                     fmt.set_bottom(5)
                     fmt.set_bottom_color('black')
 
@@ -89,3 +64,55 @@ def _write_galois_type(book: Workbook, sheet: Worksheet, groups: list[Group], ga
 
         row_num += 1
 
+
+def _write_header(
+    book: Workbook,
+    sheet: Worksheet,
+    group: Group,
+    structure_reps: list[GroupRepresentation],
+    property_keys: list[str],
+) -> tuple[list[str], int, int]:
+    # construct header
+    header = ["group", "isom"]
+    # check first group to decide the rest of the header
+    if group.perm_id is not None:
+        header.append("perm_isom")
+    if group.soluble is not None:
+        header.append("gsol")
+    # record non structure headers
+    non_structure_headers = len(header)
+    for rep in structure_reps:
+        header.extend([f"{rep}.{key}" for key in property_keys])
+
+    row = 0
+    if group.has_structure_solublity():
+        sheet.merge_range(row, 0, row, non_structure_headers - 1, "nsol", book.add_format({'align': 'center'}))
+
+        border_center = book.add_format({'align': 'center', 'border': 5, 'border_color': 'black'})
+        rep_index = 0
+        for i in range(non_structure_headers, len(header)):
+            if (i - non_structure_headers) % len(property_keys) == 0:
+                structure = group.structures[structure_reps[rep_index]]
+                soluble = str(structure.soluble).upper()
+                sheet.merge_range(row, i, row, i + len(property_keys) - 1, soluble, border_center)
+                rep_index += 1
+        row += 1
+
+    for i, name in enumerate(header):
+        fmt = book.add_format()
+        fmt.set_border()
+        fmt.set_border_color('gray')
+        # put thick black borders around stucture fields
+        if i >= non_structure_headers:
+            fmt.set_top(5)
+            fmt.set_top_color('black')
+            if (i - non_structure_headers) % len(property_keys) == 0:
+                fmt.set_left(5)
+                fmt.set_left_color('black')
+            if (i - non_structure_headers) % len(property_keys) == len(property_keys)-1:
+                fmt.set_right(5)
+                fmt.set_right_color('black')
+
+        sheet.write(row, i, name, fmt)
+    
+    return header, non_structure_headers, row+1
